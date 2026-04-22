@@ -1,0 +1,48 @@
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+.pub-cache/
+.pub/
+*.iml
+
+# Android build artifacts & local
+android/.gradle/
+android/local.properties
+android/captures/
+android/hs_err_pid*.log
+android/replay_pid*.log
+android/.kotlin/
+android/build/
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/flutter_export_environment.sh
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Sensitive / secrets
+*.env
+.env*
+google-services.json
+GoogleService-Info.plist
+**/secrets.dart
+
+# Generated code
+*.g.dart
+*.freezed.dart
+coverage/
+
+# Logs
+*.log
