@@ -1,10 +1,15 @@
-# 🚨 Accident App — Emergency SOS
+[![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter)](https://flutter.dev)
+[![Dart](https://img.shields.io/badge/Dart-3.2+-0175C2?logo=dart)](https://dart.dev)
+[![Gemini AI](https://img.shields.io/badge/Gemini-2.0%20Flash-4285F4?logo=google)](https://ai.google.dev)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-lightgrey)](https://flutter.dev)
+# 🚨 Accident App  Emergency SOS
 
-Offline-first Flutter emergency response app — BLE SOS · OSM Maps · Nearby Emergency Services · SMS fallback.
+Offline-first Flutter emergency response app  BLE SOS · OSM Maps · Nearby Emergency Services · SMS fallback.
 
 ---
 
-## ⚡ Quick Start (Windows — recommended)
+## ⚡ Quick Start (Windows  recommended)
 
 ```powershell
 # In PowerShell (run as normal user, NOT admin):
@@ -32,9 +37,9 @@ chmod +x setup.sh && ./setup.sh
 
 ## 🔧 Manual Steps (if scripts fail)
 
-### Step 1 — Fix gradle-wrapper.jar (Windows PowerShell)
+### Step 1  Fix gradle-wrapper.jar (Windows PowerShell)
 ```powershell
-# This is what caused your error — run this FIRST:
+# This is what caused your error  run this FIRST:
 Invoke-WebRequest `
   -Uri "https://github.com/gradle/gradle/raw/v8.3.0/gradle/wrapper/gradle-wrapper.jar" `
   -OutFile "android\gradle\wrapper\gradle-wrapper.jar"
@@ -46,7 +51,7 @@ curl -L https://github.com/gradle/gradle/raw/v8.3.0/gradle/wrapper/gradle-wrappe
      -o android/gradle/wrapper/gradle-wrapper.jar
 ```
 
-### Step 2 — Edit local.properties
+### Step 2  Edit local.properties
 Open `android/local.properties` and set your actual paths:
 ```properties
 # Windows example:
@@ -59,13 +64,13 @@ flutter.sdk=/home/yourname/flutter
 ```
 Find your Android SDK path in Android Studio → File → Project Structure → SDK Location.
 
-### Step 3 — Build APK
+### Step 3  Build APK
 ```bash
 flutter pub get
 flutter build apk --debug
 ```
 
-### Step 4 — Install on phone
+### Step 4  Install on phone
 
 **USB (simplest):**
 ```bash
