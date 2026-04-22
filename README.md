@@ -3,13 +3,13 @@
 [![Gemini AI](https://img.shields.io/badge/Gemini-2.0%20Flash-4285F4?logo=google)](https://ai.google.dev)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-lightgrey)](https://flutter.dev)
-# 🚨 Accident App  Emergency SOS
+# Accident App  Emergency SOS
 
 Offline-first Flutter emergency response app  BLE SOS · OSM Maps · Nearby Emergency Services · SMS fallback.
 
 ---
 
-## ⚡ Quick Start (Windows  recommended)
+## Quick Start (Windows  recommended)
 
 ```powershell
 # In PowerShell (run as normal user, NOT admin):
@@ -26,7 +26,7 @@ powershell -ExecutionPolicy Bypass -File setup.ps1
 
 ---
 
-## ⚡ Quick Start (Linux / macOS)
+## Quick Start (Linux / macOS)
 
 ```bash
 cd accident_app
@@ -35,7 +35,7 @@ chmod +x setup.sh && ./setup.sh
 
 ---
 
-## 🔧 Manual Steps (if scripts fail)
+## Manual Steps (if scripts fail)
 
 ### Step 1  Fix gradle-wrapper.jar (Windows PowerShell)
 ```powershell
@@ -94,7 +94,7 @@ adb disconnect
 
 ---
 
-## 🗂️ Project Structure
+##  Project Structure
 
 ```
 accident_app/
@@ -130,7 +130,7 @@ accident_app/
 
 ---
 
-## 🗺️ Configure Map Tiles (optional)
+## Configure Map Tiles (optional)
 
 Default uses free demo tiles. For production:
 1. Get a free key at https://www.maptiler.com/
@@ -142,7 +142,7 @@ static const _styleUrl =
 
 ---
 
-## 🛠️ Troubleshooting
+## Troubleshooting
 
 | Error | Fix |
 |-------|-----|
@@ -163,3 +163,9 @@ static const _styleUrl =
 | Android SDK | API 34 | Via Android Studio |
 | JDK | 17+ | https://adoptium.net |
 | ADB | any | Bundled with Android SDK |
+
+## Use of Google Technologies ⭐⭐⭐⭐⭐
+1. Flutter : Cross-platform mobile app (Google's showcase framework)
+2. Gemini 2.0 Flash : Latest, most capable Gemini model
+3. Dart : Google's language ecosystem
+4. Material Design 3 : Google's design system
