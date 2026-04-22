@@ -164,7 +164,7 @@ static const _styleUrl =
 | JDK | 17+ | https://adoptium.net |
 | ADB | any | Bundled with Android SDK |
 
-## Use of Google Technologies ⭐⭐⭐⭐⭐
+## Use of Google Technologies
 1. Flutter : Cross-platform mobile app (Google's showcase framework)
 2. Gemini 2.0 Flash : Latest, most capable Gemini model
 3. Dart : Google's language ecosystem
