@@ -169,3 +169,5 @@ static const _styleUrl =
 2. Gemini 2.0 Flash : Latest, most capable Gemini model
 3. Dart : Google's language ecosystem
 4. Material Design 3 : Google's design system
+
+Note : google-services.json is not added to the repository for security reasons. Therefore, due to interdependency, the apk can not be built directly from cloning the repository.
