@@ -23,8 +23,12 @@ import 'package:accident_app/shared/widgets/care_mode_banner.dart';
 import 'package:accident_app/shared/services/sensor_service.dart';
 import 'package:accident_app/shared/services/safe_location_service.dart';
 import 'package:accident_app/features/bystander/providers/bystander_provider.dart';
-// ADDED
 import 'package:accident_app/shared/services/proximity_helper_service.dart';
+// RoadSoS new features
+import 'package:accident_app/features/home/widgets/emergency_dial_bar.dart';
+import 'package:accident_app/features/home/widgets/emergency_response_panel.dart';
+import 'package:accident_app/features/ai_copilot/ai_copilot_panel.dart';
+import 'package:accident_app/shared/services/sms_service.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -42,6 +46,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   late Animation<double> _sosScale;
   final ProximityFeedback _proximityFeedback = ProximityFeedback();
   Timer? _locationRefreshTimer;
+  // Emergency Response Panel visibility (dismissible by user)
+  bool _showResponsePanel = true;
 
   @override
   void initState() {
@@ -97,6 +103,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       if (next.status == SosStatus.preAlert && prev?.status == SosStatus.idle) {
         if (!mounted) return;
         SosFeatureSheet.show(context);
+      }
+
+      // Reset panel visibility when SOS becomes active again
+      if (next.status == SosStatus.active && prev?.status != SosStatus.active) {
+        if (mounted) setState(() => _showResponsePanel = true);
       }
 
       // Show MINOR response sheet when detector opens the response window
@@ -279,13 +290,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
     final panelHeight = _panelExpanded ? 360.0 : 170.0;
     final isPreAlert = sosState.status == SosStatus.preAlert;
+    final isActive = sosState.status == SosStatus.active;
 
     final careModeState = ref.watch(careModeProvider);
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: _buildAppBar(sosState),
-      body: Stack(
+    // Response panel bottom offset: panel + 8
+    final responsePanelBottom = isActive && _showResponsePanel ? 200.0 : 0.0;
+
+    return Column(
+      children: [
+        // ── Emergency Dial Bar — always at top ────────────────────────────────
+        const EmergencyDialBar(countryCode: 'IN'),
+        // ── Map + overlays ────────────────────────────────────────────────────
+        Expanded(
+          child: Scaffold(
+            extendBodyBehindAppBar: true,
+            appBar: _buildAppBar(sosState),
+            body: Stack(
         children: [
           // ── Map ────────────────────────────────────────────────────────────
           Positioned.fill(
@@ -443,9 +464,48 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
               onToggle: () => setState(() => _panelExpanded = !_panelExpanded),
             ),
           ),
-        ],
-      ),
-    );
+
+          // ── AI Co-pilot FAB ────────────────────────────────────────────────
+          Positioned(
+            right: 16,
+            bottom: panelHeight + 16,
+            child: FloatingActionButton(
+              heroTag: 'ai_fab',
+              tooltip: 'AI Emergency Assistant',
+              backgroundColor: const Color(0xFF1565C0),
+              onPressed: () => AiCopilotPanel.show(context),
+              child: const Icon(Icons.smart_toy_outlined, color: Colors.white),
+            ),
+          ),
+
+          // ── Emergency Response Panel (when SOS active) ─────────────────────
+          if (isActive && _showResponsePanel)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: panelHeight,
+              child: FutureBuilder<List<String>>(
+                future: SmsService.getContacts(),
+                builder: (ctx, snap) {
+                  final contacts = snap.data ?? [];
+                  final nearest = filtered.isNotEmpty ? filtered.first : null;
+                  return EmergencyResponsePanel(
+                    alertedAt: sosState.alertedAt ?? DateTime.now(),
+                    notifiedContacts: contacts,
+                    lat: position?.latitude,
+                    lng: position?.longitude,
+                    nearestHospital: nearest,
+                    onDismiss: () => setState(() => _showResponsePanel = false),
+                  );
+                },
+              ),
+            ),
+        ], // Stack children
+      ), // Stack
+    ), // Scaffold
+    ), // Expanded
+    ], // Column children
+    ); // Column
   }
 
   Widget _buildCallNowBanner(EmergencyType type) {
@@ -519,7 +579,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     final Color barColor = switch (sosState.status) {
       SosStatus.active => const Color(0xFFB71C1C),
       SosStatus.preAlert => const Color(0xFFE65100),
-      _ => Colors.transparent,
+      _ => const Color(0xFF0D0D0D),
     };
 
     return AppBar(
@@ -544,7 +604,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                   ? 'SOS ACTIVE'
                   : sosState.status == SosStatus.preAlert
                       ? 'SOS in ${sosState.countdownSeconds}s'
-                      : 'Emergency SOS',
+                      : 'RoadSoS',
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                   color: Colors.white,

@@ -1,0 +1,42 @@
+{
+  "TAMIL NADU": [
+    {"name":"Government General Hospital Chennai","lat":13.0785,"lng":80.2741,"phone":"044-25305100","category":"hospital","source":"govt","district":"Chennai"},
+    {"name":"Rajiv Gandhi Government General Hospital","lat":13.0763,"lng":80.2698,"phone":"044-25305000","category":"hospital","source":"govt","district":"Chennai"},
+    {"name":"Stanley Medical College Hospital","lat":13.1038,"lng":80.2878,"phone":"044-25281349","category":"hospital","source":"govt","district":"Chennai"},
+    {"name":"PSG Hospitals Coimbatore","lat":11.0050,"lng":77.0042,"phone":"0422-4345678","category":"hospital","source":"govt","district":"Coimbatore"},
+    {"name":"Government Head Quarters Hospital Coimbatore","lat":11.0116,"lng":76.9691,"phone":"0422-2300600","category":"hospital","source":"govt","district":"Coimbatore"}
+  ],
+  "MAHARASHTRA": [
+    {"name":"KEM Hospital Mumbai","lat":18.9894,"lng":72.8455,"phone":"022-24138000","category":"hospital","source":"govt","district":"Mumbai"},
+    {"name":"Nair Hospital Mumbai","lat":18.9644,"lng":72.8347,"phone":"022-23027600","category":"hospital","source":"govt","district":"Mumbai"},
+    {"name":"Sassoon General Hospital Pune","lat":18.5193,"lng":73.8708,"phone":"020-26128000","category":"hospital","source":"govt","district":"Pune"},
+    {"name":"Jehangir Hospital Pune","lat":18.5178,"lng":73.8733,"phone":"020-66819999","category":"hospital","source":"govt","district":"Pune"}
+  ],
+  "KARNATAKA": [
+    {"name":"Bowring & Lady Curzon Hospital Bengaluru","lat":12.9796,"lng":77.6118,"phone":"080-25862288","category":"hospital","source":"govt","district":"Bengaluru"},
+    {"name":"Victoria Hospital Bengaluru","lat":12.9635,"lng":77.5756,"phone":"080-26703000","category":"hospital","source":"govt","district":"Bengaluru"},
+    {"name":"NIMHANS Bengaluru","lat":12.9374,"lng":77.5977,"phone":"080-46110007","category":"hospital","source":"govt","district":"Bengaluru"}
+  ],
+  "DELHI": [
+    {"name":"AIIMS New Delhi","lat":28.5672,"lng":77.2100,"phone":"011-26588500","category":"hospital","source":"govt","district":"Delhi"},
+    {"name":"Safdarjung Hospital New Delhi","lat":28.5683,"lng":77.2066,"phone":"011-26730000","category":"hospital","source":"govt","district":"Delhi"},
+    {"name":"RML Hospital New Delhi","lat":28.6365,"lng":77.2118,"phone":"011-23404000","category":"hospital","source":"govt","district":"Delhi"},
+    {"name":"GTB Hospital Delhi","lat":28.6841,"lng":77.3028,"phone":"011-22817400","category":"hospital","source":"govt","district":"Delhi"}
+  ],
+  "RAJASTHAN": [
+    {"name":"SMS Medical College Hospital Jaipur","lat":26.9064,"lng":75.7875,"phone":"0141-2518501","category":"hospital","source":"govt","district":"Jaipur"},
+    {"name":"JK Lon Hospital Jaipur","lat":26.8969,"lng":75.7956,"phone":"0141-2517073","category":"hospital","source":"govt","district":"Jaipur"}
+  ],
+  "UTTAR PRADESH": [
+    {"name":"KGMU Lucknow","lat":26.8621,"lng":80.9352,"phone":"0522-2258540","category":"hospital","source":"govt","district":"Lucknow"},
+    {"name":"Lohia Hospital Lucknow","lat":26.8457,"lng":80.9482,"phone":"0522-2236038","category":"hospital","source":"govt","district":"Lucknow"}
+  ],
+  "WEST BENGAL": [
+    {"name":"SSKM Hospital Kolkata","lat":22.5404,"lng":88.3438,"phone":"033-22044444","category":"hospital","source":"govt","district":"Kolkata"},
+    {"name":"Calcutta Medical College Hospital","lat":22.5684,"lng":88.3566,"phone":"033-22125227","category":"hospital","source":"govt","district":"Kolkata"}
+  ],
+  "GUJARAT": [
+    {"name":"Civil Hospital Ahmedabad","lat":23.0376,"lng":72.6007,"phone":"079-22683721","category":"hospital","source":"govt","district":"Ahmedabad"},
+    {"name":"VS Hospital Ahmedabad","lat":23.0135,"lng":72.5826,"phone":"079-26578934","category":"hospital","source":"govt","district":"Ahmedabad"}
+  ]
+}

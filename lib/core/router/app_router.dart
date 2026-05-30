@@ -16,6 +16,8 @@ import 'package:accident_app/features/history/incident_history_screen.dart';
 import 'package:accident_app/shared/models/incident_record.dart';
 import 'package:accident_app/shared/providers/app_state.dart';
 import 'package:accident_app/shared/services/sms_service.dart';
+import 'package:accident_app/features/victim_id/victim_id_screen.dart';
+import 'package:accident_app/features/victim_id/victim_qr_screen.dart';
 
 // ── Route path constants ─────────────────────────────────────────────────────
 abstract class AppRoutes {
@@ -28,6 +30,9 @@ abstract class AppRoutes {
   static const incidentDetail = '/incident-detail';
   static const onboarding = '/onboarding';
   static const history = '/history';
+  static const victimId = '/victim-id';
+  static const victimIdQr = '/victim-id/qr';
+  static const aiCopilot = '/ai';
 }
 
 // ── Router provider ──────────────────────────────────────────────────────────
@@ -112,6 +117,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             callerNumber: extra['number'] as String? ?? '+91 98765 43210',
           );
         },
+      ),
+      GoRoute(
+        path: AppRoutes.victimId,
+        name: 'victimId',
+        builder: (_, __) => const VictimIdScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.victimIdQr,
+        name: 'victimIdQr',
+        builder: (_, __) => const VictimQrScreen(),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(
@@ -650,6 +665,23 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             ),
             const SizedBox(height: 12),
 
+            // ── VICTIM ID ───────────────────────────────────────────────────
+            _buildSectionCard(
+              context,
+              icon: Icons.badge_outlined,
+              title: 'VICTIM ID CARD',
+              subtitle: 'Medical info QR for emergency responders',
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.qr_code_2),
+                title: const Text('Set up Victim ID'),
+                subtitle: const Text('Blood group, allergies, conditions, emergency contacts'),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => context.push(AppRoutes.victimId),
+              ),
+            ),
+            const SizedBox(height: 12),
+
             // ── DEMO MODE ────────────────────────────────────────────────────
             _buildSectionCard(
               context,
@@ -753,11 +785,68 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 ],
               ),
             ),
+            const SizedBox(height: 12),
+
+            // ── PRIVACY / DPDPA ─────────────────────────────────────────────
+            _buildSectionCard(
+              context,
+              icon: Icons.privacy_tip_outlined,
+              title: 'PRIVACY',
+              subtitle: 'Your data rights under DPDPA 2023',
+              child: Column(
+                children: [
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: const Icon(Icons.delete_forever_outlined, color: Colors.red),
+                    title: const Text('Clear all my data'),
+                    subtitle: const Text('Removes profile, contacts, victim ID, and all cached data'),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => _confirmClearData(context),
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(height: 24),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _confirmClearData(BuildContext context) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Clear all data?'),
+        content: const Text(
+          'This will permanently delete your profile, emergency contacts, Victim ID, '
+          'and all cached data from this device. This cannot be undone.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+            ),
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('Delete all'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed == true && mounted) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('All data cleared')),
+        );
+      }
+    }
   }
 
   void _showAddContactDialog(BuildContext context) {

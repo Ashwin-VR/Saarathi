@@ -1,0 +1,51 @@
+{
+  "IN": {
+    "country": "India",
+    "ambulance": {"number": "108", "label": "Ambulance"},
+    "police": {"number": "100", "label": "Police"},
+    "emergency": {"number": "112", "label": "Emergency"},
+    "fire": {"number": "101", "label": "Fire"}
+  },
+  "BD": {
+    "country": "Bangladesh",
+    "ambulance": {"number": "999", "label": "Ambulance"},
+    "police": {"number": "999", "label": "Police"},
+    "emergency": {"number": "999", "label": "Emergency"},
+    "fire": {"number": "999", "label": "Fire"}
+  },
+  "LK": {
+    "country": "Sri Lanka",
+    "ambulance": {"number": "110", "label": "Ambulance"},
+    "police": {"number": "119", "label": "Police"},
+    "emergency": {"number": "119", "label": "Emergency"},
+    "fire": {"number": "111", "label": "Fire"}
+  },
+  "NP": {
+    "country": "Nepal",
+    "ambulance": {"number": "102", "label": "Ambulance"},
+    "police": {"number": "100", "label": "Police"},
+    "emergency": {"number": "112", "label": "Emergency"},
+    "fire": {"number": "101", "label": "Fire"}
+  },
+  "MM": {
+    "country": "Myanmar",
+    "ambulance": {"number": "192", "label": "Ambulance"},
+    "police": {"number": "199", "label": "Police"},
+    "emergency": {"number": "112", "label": "Emergency"},
+    "fire": {"number": "191", "label": "Fire"}
+  },
+  "TH": {
+    "country": "Thailand",
+    "ambulance": {"number": "1669", "label": "Ambulance"},
+    "police": {"number": "191", "label": "Police"},
+    "emergency": {"number": "112", "label": "Emergency"},
+    "fire": {"number": "199", "label": "Fire"}
+  },
+  "DEFAULT": {
+    "country": "International",
+    "ambulance": {"number": "112", "label": "Ambulance"},
+    "police": {"number": "112", "label": "Police"},
+    "emergency": {"number": "112", "label": "Emergency"},
+    "fire": {"number": "112", "label": "Fire"}
+  }
+}

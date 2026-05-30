@@ -1,26 +1,45 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Location -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <!-- NOTE: No ACCESS_BACKGROUND_LOCATION — foreground service keeps sensor alive -->
+
+    <!-- BLE scanning only (no advertising) -->
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
         android:usesPermissionFlags="neverForLocation"
         tools:targetApi="s" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"
         tools:targetApi="s" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"
-        tools:targetApi="s" />
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
+
+    <!-- System -->
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Foreground service (crash detection) -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <!-- API 34+: health category for crash detection -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_HEALTH"
+        tools:targetApi="34" />
+
+    <!-- Notifications (API 33+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"
+        tools:targetApi="33" />
+
+    <!-- Restart service after reboot -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Audio for crash alarm -->
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
-        android:label="Saarathi"
+        android:label="RoadSoS"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="false">
@@ -45,11 +64,21 @@
             </intent-filter>
         </activity>
 
-        <!-- BLE foreground service for stable advertising in background -->
+        <!-- Crash detection foreground service -->
         <service
-            android:name=".BleSosService"
-            android:foregroundServiceType="connectedDevice"
+            android:name=".CrashDetectionService"
+            android:foregroundServiceType="health"
             android:exported="false" />
+
+        <!-- Boot receiver for service restart -->
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <!-- Flutter embedding v2 -->
         <meta-data
@@ -63,10 +92,18 @@
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
         </intent>
-        <!-- Allow querying SMS intent -->
+        <!-- SMS intent -->
         <intent>
             <action android:name="android.intent.action.SENDTO"/>
         </intent>
+        <!-- Dial intent -->
+        <intent>
+            <action android:name="android.intent.action.DIAL"/>
+        </intent>
+        <!-- WhatsApp -->
+        <package android:name="com.whatsapp" />
+        <!-- Google Maps -->
+        <package android:name="com.google.android.apps.maps" />
     </queries>
 
 </manifest>

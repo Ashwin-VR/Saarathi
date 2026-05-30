@@ -125,18 +125,19 @@ extension EmergencyTypeX on EmergencyType {
 class SosState {
   final SosStatus status;
   final SosTrigger? trigger;
-  final int countdownSeconds; // countdown remaining during preAlert
-  final int
-      responseCountdownSeconds; // countdown remaining in MINOR response window
+  final int countdownSeconds;
+  final int responseCountdownSeconds;
   final IncidentType? selectedType;
   final CrashSeverity? selectedSeverity;
   final EmergencyType? activeEmergencyType;
-  final String? statusText; // "Sending alert…", "Alert sent", "Retrying…"
+  final String? statusText;
   final String? incomingDeviceId;
   final double? incomingLat;
   final double? incomingLng;
   final int? incomingRssi;
   final IncidentRecord? lastResolvedIncident;
+  /// When SOS was triggered (set when entering active state)
+  final DateTime? alertedAt;
 
   const SosState({
     this.status = SosStatus.idle,
@@ -152,6 +153,7 @@ class SosState {
     this.incomingLng,
     this.incomingRssi,
     this.lastResolvedIncident,
+    this.alertedAt,
   });
 
   SosState copyWith({
@@ -168,6 +170,7 @@ class SosState {
     double? incomingLng,
     int? incomingRssi,
     IncidentRecord? lastResolvedIncident,
+    DateTime? alertedAt,
   }) {
     return SosState(
       status: status ?? this.status,
@@ -184,6 +187,7 @@ class SosState {
       incomingLng: incomingLng ?? this.incomingLng,
       incomingRssi: incomingRssi ?? this.incomingRssi,
       lastResolvedIncident: lastResolvedIncident ?? this.lastResolvedIncident,
+      alertedAt: alertedAt ?? this.alertedAt,
     );
   }
 }
@@ -673,7 +677,10 @@ class SosNotifier extends Notifier<SosState> {
       }
       _activeIncidentStartedAt = DateTime.now();
 
-      state = state.copyWith(status: SosStatus.active);
+      state = state.copyWith(
+        status: SosStatus.active,
+        alertedAt: DateTime.now(),
+      );
       _log('SOS is now ACTIVE${demoMode ? " (DEMO)" : ""}');
     } finally {
       _activating = false;
